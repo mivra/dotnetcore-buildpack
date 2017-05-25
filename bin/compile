@@ -37,6 +37,7 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR
 dotnet --info
+nginx -v
 
 PROJECT_NAME=$(basename $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)))
 PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname "${PROJECT_NAME}.csproj" | head -1)
