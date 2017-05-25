@@ -32,7 +32,7 @@ apt_install libunwind8 gettext nginx
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR 
 
-export PATH="/app/dotnet:${PATH}"
+export PATH="/app/.apt/usr/sbin:/app/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR
