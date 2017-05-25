@@ -48,5 +48,5 @@ echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && ls && dotnet --info && echo "Running dotnet ""./${PROJECT_NAME}.dll"" --server.urls http://+:\$PORT;http://127.0.0.1:8080" && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT;http://127.0.0.1:8080
+web: cd \$HOME/heroku_output && ls && dotnet --info && echo "Running dotnet ""./${PROJECT_NAME}.dll"" --server.urls http://+:\$PORT" && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
 EOT
