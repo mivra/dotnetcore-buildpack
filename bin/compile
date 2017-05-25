@@ -27,7 +27,7 @@ source $BP_DIR/lib/utils
 export_env_dir $ENV_DIR
 
 echo "Installing the dependencies"
-apt_install libunwind8 gettext
+apt_install libunwind8 gettext nginx
 
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR 
