@@ -49,5 +49,5 @@ echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:\$PORT & wget https://github.com/benmj87/dotnetcore-buildpack/raw/master/antitlsproxy && chmod +777 antitlsproxy && sleep 10 && ./antitlsproxy --addr http://+:\$PORT --url http://127.0.0.1:\$PORT 
+web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:\$PORT & wget https://github.com/benmj87/dotnetcore-buildpack/raw/master/antitlsproxy && chmod +777 antitlsproxy && sleep 10 && ./antitlsproxy --addr :\$PORT --url http://127.0.0.1:\$PORT 
 EOT
