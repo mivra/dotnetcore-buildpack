@@ -46,7 +46,7 @@ dotnet restore $PROJECT_FILE
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
-cp $BP_DIR/bin/antitlsproxy ${BUILD_DIR}/heroku_output
+cp $BP_DIR/lib/antitlsproxy ${BUILD_DIR}/heroku_output
 
 cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & ./antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
