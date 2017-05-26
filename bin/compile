@@ -49,5 +49,5 @@ dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration
 cp -v $BP_DIR/lib/antitlsproxy ${BUILD_DIR}/heroku_output
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && ls \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & ./antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
+web: ls \$HOME/heroku_output && cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & \$HOME/heroku_output/antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
 EOT
