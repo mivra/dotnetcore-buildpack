@@ -27,17 +27,15 @@ source $BP_DIR/lib/utils
 export_env_dir $ENV_DIR
 
 echo "Installing the dependencies"
-apt_install libunwind8 gettext nginx
+apt_install libunwind8 gettext
 
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR 
 
-export PATH="/app/.apt/usr/sbin:/app/dotnet:${PATH}"
+export PATH="/app/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR
-dotnet --info
-nginx -v
 
 PROJECT_NAME=$(basename $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)))
 PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname "${PROJECT_NAME}.csproj" | head -1)
@@ -48,6 +46,8 @@ dotnet restore $PROJECT_FILE
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
+cp $BP_DIR/bin/antitlsproxy ${BUILD_DIR}/heroku_output
+
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & wget https://github.com/benmj87/dotnetcore-buildpack/raw/master/antitlsproxy && chmod +777 antitlsproxy && sleep 10 && ./antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
+web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & ./antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
 EOT
