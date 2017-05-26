@@ -47,7 +47,8 @@ echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
 cp -v $BP_DIR/lib/antitlsproxy ${BUILD_DIR}/heroku_output
+chmod +777 ${BUILD_DIR}/heroku_output
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: ls \$HOME/heroku_output && cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & chmod +011 $HOME/heroku_output/antitlsproxy && \$HOME/heroku_output/antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
+web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://127.0.0.1:6589 & chmod +777 $HOME/heroku_output/antitlsproxy && \$HOME/heroku_output/antitlsproxy --addr :\$PORT --url http://127.0.0.1:6589 
 EOT
