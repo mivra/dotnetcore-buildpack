@@ -50,5 +50,5 @@ cp -v $BP_DIR/lib/antitlsproxy ${BUILD_DIR}/heroku_output
 chmod +550 ${BUILD_DIR}/heroku_output/antitlsproxy
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT ${CORE_ENVIRONMENT}
+web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
 EOT
